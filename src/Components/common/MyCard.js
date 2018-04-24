@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import {StyleSheet, View, Text, Image} from 'react-native'
 
-let imgUrl = require('../../assets/img/amei.jpg');
+import MyIcon from './MyIcon'
 
 class MyCard extends Component {
   constructor(props) {
@@ -12,6 +12,16 @@ class MyCard extends Component {
     return (
       <View style={[styles.cardWrapper, {width: this.props.imgWidth}]}>
         <View>
+          {this.props.isVideo ? (
+            <View style={{alignItems: 'center', flexDirection: 'row', position: 'absolute', top: 8, left: 12, zIndex: 10}}>
+              <MyIcon name="play1" size={20} color='#fff'/>
+            </View>
+          ) : (
+            <View style={{alignItems: 'center', flexDirection: 'row', position: 'absolute', top: 2, right: 8, zIndex: 10}}>
+              <MyIcon name="erji" size={16} color='#fff'/>
+              <Text style={{color: '#fff', fontSize: 14}}> 1231万</Text>
+            </View>
+          )}
           <Image style={[{width: this.props.imgWidth, height: this.props.imgHeight}]}
                  source={this.props.imgUrl} resizeMode="contain"/>
         </View>
@@ -25,16 +35,19 @@ class MyCard extends Component {
   }
 }
 
+MyCard.defaultProps = {
+  isVideo: false,
+};
+
 const styles = StyleSheet.create({
   cardWrapper: {
     flexDirection: 'column',
   },
   cardTextWrapper: {
-    height: 46,
-    paddingLeft: 6,
+    paddingLeft: 8,
     paddingRight: 6,
     paddingTop: 6,
-    paddingBottom: 6,
+    paddingBottom: 10,
   },
   cardText: {
     fontSize: 15,

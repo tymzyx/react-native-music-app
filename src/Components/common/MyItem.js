@@ -1,25 +1,39 @@
 import React,{Component} from 'react'
-import {StyleSheet, View, Text} from 'react-native'
+import {StyleSheet, View, Text, TouchableNativeFeedback} from 'react-native'
 
 import MyIcon from './MyIcon'
+
+import {connect} from 'react-redux'
+import {testAction} from '../../store/test/action'
 
 class MyItem extends Component {
   constructor(props) {
     super(props);
+
+    this._handleTouch = this._handleTouch.bind(this);
+  }
+
+  _handleTouch() {
+    const { navigate } = this.props.navigation;
+    console.log('test test test');
+    navigate('Player');
   }
 
   render() {
     return (
-      <View style={styles.itemWrapper}>
-        <View style={styles.iconWrapper}>
-          <MyIcon name="lock" size={46} color={'#C20C0C'}/>
+      <TouchableNativeFeedback onPress={this._handleTouch}>
+        <View style={styles.itemWrapper} >
+          <View style={styles.iconWrapper}>
+            <MyIcon name="lock" size={46} color={'#C20C0C'}/>
+          </View>
+          <View style={styles.textWrapper}>
+            <Text style={styles.text}>
+              {/*私人FM*/}
+              {this.props.testData.route[0]}
+            </Text>
+          </View>
         </View>
-        <View style={styles.textWrapper}>
-          <Text style={styles.text}>
-            私人FM
-          </Text>
-        </View>
-      </View>
+      </TouchableNativeFeedback>
     )
   }
 }
@@ -48,4 +62,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export default  MyItem;
+// export default MyItem;
+export default connect(state => ({
+  testData: state.testReducer
+}), {
+  testAction
+})(MyItem)
