@@ -11,8 +11,6 @@ import {TabNavigator, TabBarTop, TabBarBottom} from 'react-navigation'
 import DiscoveryDefault from './discovery/default'
 
 import CommonHead from '../Components/CommonHead/CommonHead'
-import VideoScreen from "./video";
-import MineScreen from "./mine";
 
 const Tab = TabNavigator(
   {
