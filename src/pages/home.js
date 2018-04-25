@@ -4,7 +4,8 @@ import {
   Dimensions,
   StyleSheet,
   View,
-  Text
+  Text,
+  Button
 } from 'react-native'
 
 import {TabNavigator, TabBarTop, TabBarBottom} from 'react-navigation'
@@ -54,10 +55,20 @@ class Home extends Component{
   }
 
   render() {
+    console.log('home navigate', this.props.navigation.navigate);
+    let {navigate} = this.props.navigation;
+
     return (
       <View style={styles.homeWrapper}>
         <CommonHead/>
         <View style={styles.homeMain}>
+          <Button
+            style={{zIndex: 50}}
+            title="Go to Player"
+            onPress={() =>
+              navigate('Player')
+            }
+          />
           <Tab />
         </View>
       </View>

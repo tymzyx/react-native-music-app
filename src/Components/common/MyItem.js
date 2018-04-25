@@ -14,12 +14,17 @@ class MyItem extends Component {
   }
 
   _handleTouch() {
-    const { navigate } = this.props.navigation;
-    console.log('test test test');
-    navigate('Player');
+    const navigation = this.props.navigation;
+    console.log('test test test 123', navigation);
+    navigation.dispatch({type: 'player'});
+    console.log('--------------');
+    // navigation.navigate('Player');
   }
 
   render() {
+
+    // console.log('navigation: ', this.props.navigation);
+
     return (
       <TouchableNativeFeedback onPress={this._handleTouch}>
         <View style={styles.itemWrapper} >

@@ -1,6 +1,6 @@
 // 发现音乐
 import React,{Component} from 'react'
-import {Dimensions, View, Text, StyleSheet, ScrollView} from 'react-native'
+import {Dimensions, View, Text, StyleSheet, ScrollView, Button} from 'react-native'
 import {addNavigationHelpers} from 'react-navigation'
 
 import {connect} from 'react-redux'
@@ -17,16 +17,30 @@ let imgUrl_5_2 = require('../../assets/img/5_2.png');
 
 class DiscoveryDefault extends Component {
   render() {
+
+    console.log('home tab navigate', this.props.navigation.navigate)
+    console.log('gggggg', this.props.navigation, this.props.nav);
+    let {navigate} = this.props.navigation;
+
     return (
       <ScrollView>
         <View style={styles.view}>
+          <Button
+            title="Go to Player"
+            onPress={() =>
+              navigate('Player')
+            }
+          />
           <View style={styles.itemContainer}>
             {itemList.map((item,index) => (
               <View key={index} style={styles.itemWrapper}>
-                <MyItem navigation={addNavigationHelpers({
-                  dispatch: this.props.dispatch,
-                  state: this.props.nav
-                })}/>
+                <MyItem
+                  navigation={addNavigationHelpers({
+                    dispatch: this.props.dispatch,
+                    state: this.props.nav
+                  })}
+                  // navigation={this.props.navigation}
+                />
               </View>
             ))}
           </View>
@@ -94,6 +108,7 @@ const styles = StyleSheet.create({
   }
 });
 
+// export default DiscoveryDefault;
 export default connect(state => ({
-  testData: state.nav
+  nav: state.nav
 }))(DiscoveryDefault);
