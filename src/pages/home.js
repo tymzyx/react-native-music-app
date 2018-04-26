@@ -1,13 +1,12 @@
 import React,{Component} from 'react'
-
 import {
   Dimensions,
   StyleSheet,
   View,
-  Text,
-  Button
+  Text
 } from 'react-native'
 
+import ScrollableTabView,{ScrollableTabBar} from 'react-native-scrollable-tab-view'
 import {TabNavigator, TabBarTop, TabBarBottom} from 'react-navigation'
 import DiscoveryDefault from './discovery/default'
 
@@ -55,21 +54,25 @@ class Home extends Component{
   }
 
   render() {
-    console.log('home navigate', this.props.navigation.navigate);
-    let {navigate} = this.props.navigation;
-
     return (
       <View style={styles.homeWrapper}>
         <CommonHead/>
         <View style={styles.homeMain}>
-          <Button
-            style={{zIndex: 50}}
-            title="Go to Player"
-            onPress={() =>
-              navigate('Player')
-            }
-          />
-          <Tab />
+          <ScrollableTabView
+            renderTabBar={() => (
+              <ScrollableTabBar
+                tabStyle={styles.tab}
+                textStyle={styles.tabText}
+              />
+            )}
+            tabBarBackgroundColor="rgba(240, 240, 240, 0.8)"
+            tabBarUnderlineStyle={styles.tabBarUnderline}
+            tabBarActiveTextColor="#C20C0C"
+            tabBarInactiveTextColor="#000"
+          >
+            <DiscoveryDefault navigation={this.props.navigation} tabLabel="发现音乐"/>
+            <DiscoveryDefault navigation={this.props.navigation} tabLabel="主播电台"/>
+          </ScrollableTabView>
         </View>
       </View>
     )
@@ -84,8 +87,17 @@ const styles = StyleSheet.create({
   },
   homeMain: {
     flex: 1,
-    top: 49,
     width: Dimensions.get('window').width,
+  },
+  tab: {
+    paddingBottom: 0
+  },
+  tabText: {
+    fontSize: 16
+  },
+  tabBarUnderline: {
+    backgroundColor: '#C20C0C',
+    height: 2
   }
 });
 

@@ -15,10 +15,7 @@ class MyItem extends Component {
 
   _handleTouch() {
     const navigation = this.props.navigation;
-    console.log('test test test 123', navigation);
-    navigation.dispatch({type: 'player'});
-    console.log('--------------');
-    // navigation.navigate('Player');
+    navigation.navigate('Player');
   }
 
   render() {

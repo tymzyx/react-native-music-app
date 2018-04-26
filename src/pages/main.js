@@ -18,27 +18,18 @@ const MainComponent = StackNavigator(
     Player: {
       screen: Player,
       navigationOptions: {
-
+        header: null,
       }
     }
   },
   {
-    initialRouteName: 'Tab'
+    initialRouteName: 'Player'
   }
 );
-
-// const action0 = MainComponent.router.getActionForPathAndParams('Tab');
-// const state0 = MainComponent.router.getStateForAction(action0);
-// const action1 = MainComponent.router.getActionForPathAndParams('Player');
-// const state1 = MainComponent.router.getStateForAction(
-//   action1,
-//   state0
-// );
 
 const navReducer = (state, action) => {
   let newState;
   // debugger
-  console.log('dispatch');
   switch (action.type) {
     case 'player':
       newState = MainComponent.router.getStateForAction(
@@ -52,22 +43,22 @@ const navReducer = (state, action) => {
   return newState || state;
 };
 
-const mapStateToProps = (state) => ({
-    nav: state.nav
-});
-class App extends Component {
-  render() {
-    return (
-      <MainComponent
-        navigation={addNavigationHelpers({
-          dispatch: this.props.dispatch,
-          state: this.props.nav
-        })}
-      />
-    );
-  }
-}
-const AppWithNavigationState = connect(mapStateToProps)(App);
+// const mapStateToProps = (state) => ({
+//     nav: state.nav
+// });
+// class App extends Component {
+//   render() {
+//     return (
+//       <MainComponent
+//         navigation={addNavigationHelpers({
+//           dispatch: this.props.dispatch,
+//           state: this.props.nav
+//         })}
+//       />
+//     );
+//   }
+// }
+// const AppWithNavigationState = connect(mapStateToProps)(App);
 
 let store = getStore(navReducer);
 class Main extends Component {

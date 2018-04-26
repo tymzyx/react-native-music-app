@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 
 import {
   StyleSheet,
+  Dimensions,
   View,
   Text,
   TextInput
@@ -38,10 +39,7 @@ class CommonHead extends Component {
 
 const styles = StyleSheet.create({
   headWrapper: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
+    width: Dimensions.get('window').width,
     height: 50,
     backgroundColor: 'rgba(240, 240, 240, 0.8)',
     zIndex: 5,

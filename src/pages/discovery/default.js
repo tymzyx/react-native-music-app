@@ -17,29 +17,14 @@ let imgUrl_5_2 = require('../../assets/img/5_2.png');
 
 class DiscoveryDefault extends Component {
   render() {
-
-    console.log('home tab navigate', this.props.navigation.navigate)
-    console.log('gggggg', this.props.navigation, this.props.nav);
-    let {navigate} = this.props.navigation;
-
     return (
       <ScrollView>
-        <View style={styles.view}>
-          <Button
-            title="Go to Player"
-            onPress={() =>
-              navigate('Player')
-            }
-          />
+        <View style={styles.view} tabLabel={this.props.name}>
           <View style={styles.itemContainer}>
             {itemList.map((item,index) => (
               <View key={index} style={styles.itemWrapper}>
                 <MyItem
-                  navigation={addNavigationHelpers({
-                    dispatch: this.props.dispatch,
-                    state: this.props.nav
-                  })}
-                  // navigation={this.props.navigation}
+                  navigation={this.props.navigation}
                 />
               </View>
             ))}
@@ -79,7 +64,7 @@ class DiscoveryDefault extends Component {
 
 const styles = StyleSheet.create({
   view: {
-
+    // flex: 1,
   },
   itemContainer: {
     height: 90,

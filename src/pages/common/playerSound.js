@@ -1,5 +1,5 @@
 /*
-  player using react-native-video
+  player using react-native-sound
 */
 import React,{Component} from 'react'
 import {
@@ -12,6 +12,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 import Video from 'react-native-video'
+import Sound from 'react-native-sound'
 
 import MyIcon from '../../Components/common/MyIcon'
 import MyCard from '../../Components/common/MyCard'
@@ -43,11 +44,27 @@ class Player extends Component {
       pause: true,
     };
 
+    Sound.setCategory('Playback');
+
     this._goBack = this._goBack.bind(this);
     this.initAudio = this.initAudio.bind(this);
     this.onProgress = this.onProgress.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
     this.changeSlider = this.changeSlider.bind(this);
+  }
+
+  componentWillMount() {
+    // debugger
+    console.log(123)
+    const s = new Sound(vd, Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('error', error);
+        return
+      }
+
+      // loaded successfully
+      console.log('duration in seconds: ' + s.getDuration() + 'number of channels: ' + s.getNumberOfChannels());
+    });
   }
 
   _goBack() {
@@ -63,7 +80,7 @@ class Player extends Component {
 
   initAudio(status) {
     // can not get the correct duration of music using react-native-video
-    console.log(status.duration, status, this.refs.myAudio);
+    console.log(status.duration, status);
     this.setState({
       pause: true
     });
@@ -79,7 +96,6 @@ class Player extends Component {
 
   // 播放器每隔250ms调用一次
   onProgress(status) {
-    return
     if (this.state.pause) {
       return;
     }
@@ -103,9 +119,6 @@ class Player extends Component {
       progressParams: Object.assign({}, prevState.progressParams, progressParams)
     }));
 
-    let myAudio = this.refs.myAudio;
-    console.log(myAudio, val);
-    myAudio.seek(parseInt(val));
   }
 
   render() {
@@ -170,15 +183,6 @@ class Player extends Component {
             )}
           </View>
         </View>
-        <Video
-          ref="myAudio"
-          source={vd}
-          rate={1.0}
-          volume={1.0}
-          paused={this.state.pause}
-          onLoad={(status) => this.initAudio(status)}
-          onProgress={(status) => this.onProgress(status)}
-        />
       </View>
     )
   }
