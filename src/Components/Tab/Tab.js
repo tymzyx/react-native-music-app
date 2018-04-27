@@ -6,6 +6,7 @@ import {TabNavigator, TabBarBottom} from 'react-navigation'
 import HomeScreen from '../../pages/home'
 import VideoScreen from '../../pages/video'
 import MineScreen from '../../pages/mine'
+import AccountScreen from '../../pages/account'
 import TabBarItem from './TabBarItem'
 
 const Tab = TabNavigator(
@@ -47,7 +48,7 @@ const Tab = TabNavigator(
       })
     },
     Account: {
-      screen: VideoScreen,
+      screen: AccountScreen,
       navigationOptions: ({navigation}) => ({
         tabBarLabel: '账号',
         tabBarIcon: ({focused, tintColor}) => (
@@ -57,6 +58,7 @@ const Tab = TabNavigator(
     }
   },
   {
+    initialRouteName: 'Account',
     tabBarComponent: TabBarBottom,
     tabBarPosition:'bottom',
     animationEnabled: false,

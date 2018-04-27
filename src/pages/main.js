@@ -23,7 +23,7 @@ const MainComponent = StackNavigator(
     }
   },
   {
-    initialRouteName: 'Player'
+    initialRouteName: 'Tab'
   }
 );
 

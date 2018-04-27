@@ -41,6 +41,7 @@ class Player extends Component {
         durationInt: 297
       },
       pause: true,
+      isShowLyric: false,
     };
 
     this._goBack = this._goBack.bind(this);
@@ -52,7 +53,7 @@ class Player extends Component {
 
   _goBack() {
     console.log('goBack');
-    // this.props.navigation.goBack();
+    this.props.navigation.goBack();
   }
 
   togglePlay() {
@@ -79,7 +80,6 @@ class Player extends Component {
 
   // 播放器每隔250ms调用一次
   onProgress(status) {
-    return
     if (this.state.pause) {
       return;
     }
@@ -95,6 +95,7 @@ class Player extends Component {
 
   // Video.seek can not work and the pause can not work when use seek
   changeSlider(val) {
+    return;
     let progressParams = {
       currentInt: val,
       current: util.secondToTime(val),
@@ -103,6 +104,7 @@ class Player extends Component {
       progressParams: Object.assign({}, prevState.progressParams, progressParams)
     }));
 
+    // debugger;
     let myAudio = this.refs.myAudio;
     console.log(myAudio, val);
     myAudio.seek(parseInt(val));
@@ -131,16 +133,33 @@ class Player extends Component {
             <MyIcon name="set1" size={26} color="#fff"/>
           </View>
         </View>
-        <View style={styles.infoWrapper}>
-          <MyCard song="七里香" singer="周杰伦" imgUrl={imgUrl} isSong={true}
-                  imgWidth={Dimensions.get('window').width/1.3}
-                  imgHeight={Dimensions.get('window').width/1.3}
-                  isShowTypeIcon={false}
-          />
-        </View>
+        <TouchableOpacity style={{flex:1}} onPress={
+          () => {
+            this.setState({
+              isShowLyric: !this.state.isShowLyric
+            })
+          }
+        }>
+          <View style={styles.infoWrapper}>
+            {!this.state.isShowLyric ? (
+              <MyCard song="七里香" singer="周杰伦" imgUrl={imgUrl} isSong={true}
+                      imgWidth={Dimensions.get('window').width/1.3}
+                      imgHeight={Dimensions.get('window').width/1.3}
+                      isShowTypeIcon={false}
+              />
+            ) : (
+              <View>
+                <Text>
+                  这里是歌词
+                </Text>
+              </View>
+            )}
+          </View>
+        </TouchableOpacity>
         <View style={styles.ctrlWrapper}>
           <View style={styles.progressWrapper}>
             <Text style={{color: "#fff"}}>{this.state.progressParams.current}</Text>
+            {/*进度条*/}
             <Slider style={styles.progress}
                     minimumTrackTintColor={'#C20C0C'}
                     maximumTrackTintColor={'#222'}

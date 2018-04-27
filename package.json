@@ -6,7 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "run": "react-native start",
-    "run-android": "react-native run-android"
+    "run-android": "react-native run-android",
+    "clean": "gradlew.bat clean using in ./android"
   },
   "dependencies": {
     "babel-preset-react-native": "2.1.0",
