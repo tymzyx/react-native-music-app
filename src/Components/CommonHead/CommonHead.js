@@ -19,25 +19,24 @@ class CommonHead extends Component {
     return (
       <View style={styles.headWrapper}>
         <View style={styles.headTop}>
+          <View style={styles.topIcon}>
+            {this.props.iconName ? (
+              <MyIcon name={this.props.iconName} size={28}/>
+            ) : null}
+          </View>
           {this.props.isHasSearch ? [(
-            <View style={styles.topIcon}>
-              <MyIcon name="music" size={28}/>
-            </View>), (
             <View style={styles.searchIcon}>
               <MyIcon name="search" size={17}/>
             </View>), (
             <TextInput style={styles.input} underlineColorAndroid='transparent'
                      placeholder="世界上的另一个我 很好听哦"/>
-          )] : [(
-            <View style={styles.topIcon}>
-            </View>
-          ), (
+          )] : (
             <View style={styles.title}>
-              <Text style={{fontSize: 20, color: '#000'}}>
+              <Text style={{fontSize: 19, color: '#000'}}>
                 {this.props.text}
               </Text>
             </View>
-          )]}
+          )}
           <View style={styles.topIcon}>
             <MyIcon name="paixingbang" size={28}/>
           </View>
@@ -53,6 +52,7 @@ class CommonHead extends Component {
 CommonHead.defaultProps = {
   isHasSearch: true,
   text: '',
+  iconName: '',
 };
 
 const styles = StyleSheet.create({

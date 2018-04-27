@@ -18,7 +18,11 @@ class MyListItem extends Component {
       <View style={styles.wrapper}>
         <View style={styles.left}>
           {this.props.isUser ? (
-            <Image source={this.props.imgUrl} style={styles.image} resizeMode="contain"/>
+            <Image source={this.props.imgUrl} style={{
+              width: this.props.imgWidth,
+              height: this.props.imgHeight,
+              borderRadius: this.props.radius ? this.props.radius : 0
+            }} resizeMode="contain"/>
           ) : (
             <MyIcon name={'shoucang1'} size={20} color={"#333"}/>
           )}
@@ -39,23 +43,30 @@ class MyListItem extends Component {
               <View style={styles.rightUnder}/>
             ) : null}
           </View>
-        ) : [(
-          <View style={styles.userMiddle}>
-            <Text style={{fontSize: 18, color: '#000'}}>
-              看见夕阳了吗
-            </Text>
-            <View>
-              <Text>
-                Lv.6
-              </Text>
+        ) : (
+          <View style={{flex: 1, justifyContent: 'space-between'}}>
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <View style={styles.userMiddle}>
+                <Text style={{fontSize: 18, color: '#000'}}>
+                  看见夕阳了吗
+                </Text>
+                <View>
+                  <Text>
+                    Lv.6
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.userRight}>
+                <Text style={{color: '#C20C0C'}}>
+                  签到
+                </Text>
+              </View>
             </View>
-          </View>), (
-          <View style={styles.userRight}>
-            <Text style={{color: '#C20C0C'}}>
-              签到
-            </Text>
+            {this.props.isHasUnder ? (
+              <View style={styles.rightUnder}/>
+            ) : null}
           </View>
-        )]}
+        )}
       </View>
     )
   }
@@ -80,11 +91,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingTop: 12,
     paddingBottom: 12,
-  },
-  image: {
-    width: 62,
-    height: 62,
-    borderRadius: 248,
   },
   right: {
     flex: 1,
@@ -112,7 +118,7 @@ const styles = StyleSheet.create({
   },
   userMiddle: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   userRight: {
     borderRadius: 12,

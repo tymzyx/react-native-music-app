@@ -56,7 +56,7 @@ class Home extends Component{
   render() {
     return (
       <View style={styles.homeWrapper}>
-        <CommonHead/>
+        <CommonHead iconName={"music"}/>
         <View style={styles.homeMain}>
           <ScrollableTabView
             renderTabBar={() => (

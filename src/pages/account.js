@@ -30,7 +30,7 @@ class Account extends Component {
         <CommonHead isHasSearch={false} text={"帐号"}/>
         <ScrollView style={{backgroundColor: '#ddd'}}>
           <View style={styles.module}>
-            <MyListItem imgUrl={avatarImg} isUser={true}/>
+            <MyListItem imgUrl={avatarImg} isUser={true} isHasUnder={false} imgWidth={62} imgHeight={62} radius={248}/>
             <View style={styles.cardItem}>
               {cards.map((item,index) => {return [
                 (<View key={index} style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
