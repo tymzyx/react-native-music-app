@@ -30,7 +30,9 @@ class Account extends Component {
         <CommonHead isHasSearch={false} text={"帐号"}/>
         <ScrollView style={{backgroundColor: '#ddd'}}>
           <View style={styles.module}>
-            <MyListItem imgUrl={avatarImg} isUser={true} isHasUnder={false} imgWidth={62} imgHeight={62} radius={248}/>
+            <MyListItem imgUrl={avatarImg} isImg={true} isHasUnder={false}
+                        titleSize={18} titleName={"看见夕阳了么"} otherInfo={"LV.6"}
+                        imgWidth={62} imgHeight={62} radius={248}/>
             <View style={styles.cardItem}>
               {cards.map((item,index) => {return [
                 (<View key={index} style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

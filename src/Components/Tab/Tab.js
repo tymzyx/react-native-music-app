@@ -58,7 +58,7 @@ const Tab = TabNavigator(
     }
   },
   {
-    initialRouteName: 'Mine',
+    initialRouteName: 'Home',
     tabBarComponent: TabBarBottom,
     tabBarPosition:'bottom',
     animationEnabled: false,

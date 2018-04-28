@@ -47,10 +47,14 @@ class Mine extends Component{
 
   _renderItem = (info) => {
     let key = info.section.key;
-    let txt = '  ' + info.item.title;
+    let txt = info.item.title;
+    let author = info.item.author ? '，by ' + info.item.author : '';
+    let other = info.item.total === info.item.download ? info.item.total + '首' + author :
+      info.item.total + '首' + author + '，已下载' + info.item.download + '首';
     return (
       <View style={{display: this.state.isShow[key] ? 'flex' : 'none',}}>
-        <MyListItem imgUrl={imgUrl} isUser={true} imgWidth={44} imgHeight={44} />
+        <MyListItem imgUrl={imgUrl} isImg={true} imgWidth={44} imgHeight={44}
+                    titleName={txt} otherInfo={other} />
       </View>)
   };
 
@@ -59,12 +63,23 @@ class Mine extends Component{
       {
         key: "A",
         text: "我创建的歌单",
-        data: [{ title: "阿童木" }, { title: "阿玛尼" }, { title: "爱多多" }]
+        data: [
+          {title: "我喜欢的音乐", total: 93, download: 46},
+          {title: "run", total: 14, download: 11},
+          {title: "call", total: 2, download: 2},
+          {title: "call", total: 2, download: 2},
+          {title: "call", total: 2, download: 2},
+          {title: "call", total: 2, download: 2},
+          {title: "call", total: 2, download: 2},
+        ]
       },
       {
         key: "B",
         text: "我收藏的歌单",
-        data: [{ title: "表哥" }, { title: "贝贝" }, { title: "表弟" }, { title: "表姐" }, { title: "表叔" }]
+        data: [
+          {title: "港囧中无可替代的港乐", total: 93, download: 46, author: "当世界复杂喧嚣"},
+          {title: "女声翻唱", total: 14, download: 11, author: "我是你的爸爸"},
+        ]
       }
     ];
 

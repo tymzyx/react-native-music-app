@@ -9,6 +9,9 @@ import {
   Button,
   Dimensions,
   Slider,
+  Image,
+  Animated,
+  Easing,
   TouchableOpacity
 } from 'react-native'
 import Video from 'react-native-video'
@@ -20,6 +23,7 @@ import util from '../../assets/js/util'
 
 let vd = require('../../../qilixiang.mp3');
 const imgUrl = require('../../assets/img/amei.jpg');
+const imgBorder = require('../../assets/img/border.png');
 
 const ctrl = [
   {icon: 'hkquit'},
@@ -32,6 +36,9 @@ const ctrl = [
 class Player extends Component {
   constructor(props) {
     super(props);
+
+    this.spinVal = new Animated.Value(0);
+    // console.log('spinVal: ', this.spinVal);
 
     this.state = {
       progressParams: {
@@ -49,6 +56,16 @@ class Player extends Component {
     this.onProgress = this.onProgress.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
     this.changeSlider = this.changeSlider.bind(this);
+    this.spin = this.spin.bind(this);
+  }
+
+  componentWillMount() {
+    console.log(this.props.navigation.state.params);
+    // this.spin();
+  }
+
+  componentDidMount() {
+    this.spin();
   }
 
   _goBack() {
@@ -110,7 +127,28 @@ class Player extends Component {
     myAudio.seek(parseInt(val));
   }
 
+  // 图片旋转动画
+  spin() {
+    console.log('spin spin')
+    this.spinVal.setValue(0);
+    Animated.timing(
+      this.spinVal,
+      {
+        toValue: 1,
+        duration: 5000,
+        easing: Easing.linear,
+        isInteraction: false
+      }
+    ).start(() => this.spin());
+  }
+
   render() {
+    const spinAngle = this.spinVal.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '360deg']
+    });
+    console.log("spinAngel: ", spinAngle);
+
     return (
       <View style={styles.wrapper}>
         <View style={styles.head}>
@@ -142,11 +180,33 @@ class Player extends Component {
         }>
           <View style={styles.infoWrapper}>
             {!this.state.isShowLyric ? (
-              <MyCard song="七里香" singer="周杰伦" imgUrl={imgUrl} isSong={true}
+              this.props.navigation.state.params.type !== 'fm' ? (
+                <MyCard song="七里香" singer="周杰伦" imgUrl={imgUrl} isSong={true}
                       imgWidth={Dimensions.get('window').width/1.3}
                       imgHeight={Dimensions.get('window').width/1.3}
-                      isShowTypeIcon={false}
-              />
+                      isShowTypeIcon={false}/>
+              ) : (
+                [
+                  <Image
+                    style={{
+                      width: 300,
+                      height: 300,
+                      top: -60,
+                    }}
+                    source={imgBorder}
+                  />,
+                  <Animated.Image
+                    style={{
+                      width: 220,
+                      height: 220,
+                      marginTop: -320,
+                      borderRadius: 110,
+                      transform: [{rotate: spinAngle}]
+                    }}
+                    source={imgUrl}
+                  />
+                ]
+              )
             ) : (
               <View>
                 <Text>
@@ -156,7 +216,7 @@ class Player extends Component {
             )}
           </View>
         </TouchableOpacity>
-        <View style={styles.ctrlWrapper}>
+        <View style={{height: this.props.navigation.state.params.type !== 'fm' ? 160 : 200}}>
           <View style={styles.progressWrapper}>
             <Text style={{color: "#fff"}}>{this.state.progressParams.current}</Text>
             {/*进度条*/}
@@ -233,9 +293,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  ctrlWrapper: {
-    height: 120,
   },
   progressWrapper: {
     flexDirection: 'row',

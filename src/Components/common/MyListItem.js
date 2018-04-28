@@ -17,17 +17,17 @@ class MyListItem extends Component {
     return (
       <View style={styles.wrapper}>
         <View style={styles.left}>
-          {this.props.isUser ? (
+          {this.props.isImg ? (
             <Image source={this.props.imgUrl} style={{
               width: this.props.imgWidth,
               height: this.props.imgHeight,
               borderRadius: this.props.radius ? this.props.radius : 0
-            }} resizeMode="contain"/>
+            }}/>
           ) : (
             <MyIcon name={'shoucang1'} size={20} color={"#333"}/>
           )}
         </View>
-        {!this.props.isUser ? (
+        {!this.props.isImg ? (
           <View style={styles.right}>
             <View style={styles.rightTop}>
               <View style={styles.rightLeft}>
@@ -47,12 +47,12 @@ class MyListItem extends Component {
           <View style={{flex: 1, justifyContent: 'space-between'}}>
             <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
               <View style={styles.userMiddle}>
-                <Text style={{fontSize: 18, color: '#000'}}>
-                  看见夕阳了吗
+                <Text style={{fontSize: this.props.titleSize, color: '#000'}}>
+                  {this.props.titleName}
                 </Text>
                 <View>
                   <Text>
-                    Lv.6
+                    {this.props.otherInfo}
                   </Text>
                 </View>
               </View>
@@ -74,7 +74,9 @@ class MyListItem extends Component {
 
 MyListItem.defaultProps = {
   isHasUnder: true, // 是否有underLine
+  isImg: false,
   isUser: false,
+  titleSize: 16,
 };
 
 const styles = StyleSheet.create({
